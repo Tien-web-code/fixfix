@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khuyến mãi</title>
+  <link rel="stylesheet" type="text/css" href="topbar.css" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/search.css"/>
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="./assets/css/product-detail.css"/>  
+  <link rel="stylesheet" href="./assets/css/home-responsive.css">
+  <link rel="stylesheet" href="./assets/font/font-awesome-pro-v6-6.2.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./assets/css/account-management.css"/>
+  <link rel="stylesheet" href="./assets/css/product-list.css"/>
+  <style>
+    /* ============ TOAST STYLES ============ */
+    #toast {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background-color: #fff;
+      min-width: 300px;
+      max-width: 400px;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideInRight 0.4s ease-in-out;
+      border-left: 4px solid #ccc;
+    }
+
+    .toast--success {
+      background-color: #f0f9ff;
+      border-left-color: #22c55e;
+      color: #166534;
+    }
+
+    .toast--success .toast-icon {
+      color: #22c55e;
+    }
+
+    .toast--error {
+      background-color: #fef2f2;
+      border-left-color: #ff9a3c;
+      color: #ff7a00;
+    }
+
+    .toast--error .toast-icon {
+      color: #ff7a00;
+    }
+
+    .toast-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .toast-body {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin: 0 0 4px 0;
+      font-size: 14px;
+    }
+
+    .toast-msg {
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="top-bar">
+    <div class="top-bar-content">
+        IP25K - GIẢM NGAY 25K CHO ĐƠN HÀNG 99K 
+        NHẬP MÃ T04FREESHIP20K - GIẢM NGAY 20K
+    </div>
+</div>
+<div>
+  <div class="header">
+    <!-- MENU TRÊN -->
+    <!-- MAIN -->
+    <div class="header-main">
+        <!-- LOGO -->
+        <div class="logo">
+    <img src="../images/LOGO3.png" alt="logo">
+  </div>
+  <div class="search-box position-relative">
+    <i class="fa fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Nhập tên sản phẩm cần tìm..." autocomplete="off">
+    <div id="searchDropdown" class="search-dropdown">
+        <div id="boxSP">
+            <h4>TỪ KHÓA GỢI Ý</h4>
+            <ul id="listTuKhoa" class="suggested-keywords" style="margin-bottom: 20px;"></ul>
+            
+            <h4>SẢN PHẨM LIÊN QUAN</h4>
+            <div id="listSanPham" class="search-product-list"></div>
+        </div>
+        <div id="boxTH" style="display:none; margin-top: 15px;">
+            <h4>THƯƠNG HIỆU NỔI BẬT</h4>
+            <div id="listThuongHieu" class="search-brand-tags"></div>
+        </div>
+    </div>
+  </div>
+  <script src="./js/search.js"></script>
+  <div>
+    <div class="header-middle-right">
+      <ul class="header-middle-right-list">
+            <li class="header-middle-right-item dropdown">
+              <i class="fa-light fa-user"></i>
+              <div class="auth-container">
+                <span class="text-tk">Tài khoản <i class="fa-sharp fa-solid fa-caret-down"></i></span>
+              </div>
+              <ul class="header-middle-right-menu">
+                <li><a id="login" href="javascript:;"><i class="fa-light fa-right-to-bracket"></i> Đăng nhập</a></li>
+                <li><a id="signup" href="javascript:;"><i class="fa-light fa-user-plus"></i> Đăng ký</a></li>
+              </ul>
+            </li>
+            <li class="header-middle-right-item" onclick="openCart()">
+              <div class="cart-icon-menu">
+                <i class="fa-light fa-basket-shopping"></i>
+                <span class="count-product-cart">0</span>
+              </div>
+              <span>Giỏ hàng</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal signup-login">
+        <div class="modal-container">
+          <button class="form-close" onclick="closeModal()"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+          <div class="forms mdl-cnt">
+            <div class="form-content sign-up">
+        <h3 class="form-title">Đăng ký tài khoản</h3>
+        <p class="form-description">Đăng ký thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúng tôi </p>
+        <form action="" class="signup-form">
+          <div class="form-group">
+            <label for="fullname" class="form-label">Tên đầy đủ</label>
+            <input id="fullname" name="fullname" type="text" placeholder="VD: Nhật Sinh" class="form-control">
+            <span class="form-message-name form-message"></span>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại" class="form-control">
+            <span class="form-message-phone form-message"></span>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message-password form-message"></span>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+            <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+            <span class="form-message-password-confi form-message"></span>
+          </div>
+          <div class="form-group">
+            <input class="checkbox" name="checkbox" required="" type="checkbox" id="checkbox-signup">
+            <label for="checkbox-signup" class="form-checkbox"><a href="#"title="Tôi đồng ý với chính sách trang web" target="_blank">Tôi đồng ý với chính sách trang web</a></label>
+            <p class="form-message-checkbox form-message"></p>
+          </div>
+          <button class="form-submit" id="signup-button">Đăng ký</button>
+        </form>
+        <p class="change-login">Bạn đã có tài khoản ? <a href="javascript:;" class="login-link">Đăng nhập ngay</a></p>
+      </div>
+      <div class="form-content login">
+        <h3 class="form-title">Đăng nhập tài khoản</h3>
+        <p class="form-description">Đăng nhập thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúngtôi</p>
+        <form action="" class="login-form">
+          <div class="form-group">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input id="phone-login" name="phone" type="text" placeholder="Nhập số điện thoại" class="form-control">
+            <span class="form-message phonelog"></span>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input id="password-login" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message-check-login form-message"></span>
+          </div>
+          <button class="form-submit" id="login-button">Đăng nhập</button>
+        </form>
+        <p class="change-login">Bạn chưa có tài khoản ? <a href="javascript:;" class="signup-link">Đăng kí ngay</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-cart">
+  <div class="cart-container">
+    <div class="cart-header">
+        <h3 class="cart-header-title"><i class="fa-light fa-basket-shopping"></i> Giỏ hàng của bạn</h3>
+        <button class="cart-close" onclick="closeCart()"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-body">
+        <div class="gio-hang-trong">
+            <i class="fa-thin fa-cart-xmark"></i>
+            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+        </div>
+        <ul class="cart-list">
+        </ul>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total-price">
+            <p class="text-tt">Tổng tiền:</p>
+            <p class="text-price">0đ</p>
+        </div>
+        <div class="cart-footer-payment">
+            <button class="them-mon"><i class="fa-regular fa-plus"></i> Thêm món</button>
+            <button class="thanh-toan disabled">Thanh toán</button>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+  <header class="header-nav">
+    <div class="nav-container">
+        <div class="nav-item-wrap">
+            <a href="topbar.html" class="nav-item"><i class="fa-solid fa-house"></i> TRANG CHỦ</a>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="index.html?promo=sale-50" class="nav-item">🔥 KHUYẾN MÃI HOT 🔥 <i class="fa-solid fa-angle-down" style="font-size: 11px;"></i></a>
+            <div class="simple-dropdown">
+                <ul>
+                    <li><a href="khuyenmai.html#mua-la-co-qua">Flash Sale Giờ Vàng</a></li>
+                    <li><a href="khuyenmai.html#mua-la-co-qua">Mua là có quà</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="index.html" class="nav-item">SẢN PHẨM <i class="fa-solid fa-angle-down" style="font-size: 11px;"></i></a>
+            <div class="simple-dropdown">
+                <ul>
+                        <li><a href="index.html?category=Nước%20hoa">Nước hoa</a></li>
+                        <li><a href="index.html?category=Chăm%20sóc%20cơ%20thể">Chăm sóc cơ thể</a></li>
+                        <li><a href="index.html?category=Chăm%20sóc%20tóc">Chăm sóc tóc</a></li>
+                        <li><a href="index.html?category=Chăm%20sóc%20da%20mặt">Chăm sóc da mặt</a></li>
+                         <li><a href="index.html?category=Trang%20điểm">Trang điểm</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="Trangtv.html" class="nav-item">GIỚI THIỆU</a>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="lien-he.html" class="nav-item">LIÊN HỆ</a>
+        </div>
+        </header>
+</div>
+<style>
+    /* ============ TOAST STYLES ============ */
+    #toast {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background-color: #fff;
+      min-width: 300px;
+      max-width: 400px;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideInRight 0.4s ease-in-out;
+      border-left: 4px solid #ccc;
+    }
+
+    .toast--success {
+      background-color: #f0f9ff;
+      border-left-color: #22c55e;
+      color: #166534;
+    }
+
+    .toast--success .toast-icon {
+      color: #22c55e;
+    }
+
+    .toast--error {
+      background-color: #fef2f2;
+      border-left-color: #ff9a3c;
+      color: #ff7a00;
+    }
+
+    .toast--error .toast-icon {
+      color: #ff7a00;
+    }
+
+    .toast-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .toast-body {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin: 0 0 4px 0;
+      font-size: 14px;
+    }
+
+    .toast-msg {
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* ============ PROMO PAGE STYLES ============ */
+    .promo-banner {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(255, 87, 34, 0.3);
+    }
+
+    .promo-banner-content {
+      max-width: 800px;
+      padding: 40px;
+    }
+
+    .promo-banner-content h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .promo-banner-content p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+
+    .promo-banner-btn {
+      background-color: white;
+      color: #ff5722;
+      padding: 12px 40px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .promo-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ============ PROMO SECTION STYLES ============ */
+    .promo-section {
+      margin-bottom: 60px;
+    }
+
+    .promo-header {
+      background-color: #ff5722;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+    }
+
+    .promo-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .promo-header .icon {
+      font-size: 28px;
+    }
+
+    .promo-header .view-all-btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .promo-header .view-all-btn:hover {
+      background-color: white;
+      color: #ff5722;
+    }
+
+    .promo-products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    /* ============ PROMO PRODUCT CARD STYLES ============ */
+    .promo-product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .promo-product-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .promo-product-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background-color: #f5f5f5;
+    }
+
+    .promo-product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .promo-product-card:hover .promo-product-img {
+      transform: scale(1.08);
+    }
+
+    .promo-discount-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ff5722;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .promo-gift-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #4caf50;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .promo-product-info {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .promo-product-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      color: #333;
+      line-height: 1.4;
+      height: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .promo-product-rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .promo-product-rating .stars {
+      color: #ffc107;
+      font-size: 14px;
+    }
+
+    .promo-product-rating .rating-value {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .promo-product-rating .sold-count {
+      color: #999;
+    }
+
+    .promo-product-price {
+      margin-bottom: 15px;
+      margin-top: auto;
+    }
+
+    .promo-price-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .promo-price-original {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 13px;
+    }
+
+    .promo-price-final {
+      color: #ff5722;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .promo-price-unit {
+      font-size: 12px;
+      color: #ff5722;
+    }
+
+    .promo-product-actions {
+      display: flex;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .promo-action-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .promo-add-cart-btn {
+      background-color: #f5f5f5;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .promo-add-cart-btn:hover {
+      background-color: #ff5722;
+      color: white;
+      border-color: #ff5722;
+    }
+
+    .promo-buy-now-btn {
+      background-color: #ff5722;
+      color: white;
+    }
+
+    .promo-buy-now-btn:hover {
+      background-color: #e64a19;
+    }
+
+    /* ============ CONTAINER STYLES ============ */
+    .promo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .promo-banner-content h1 {
+        font-size: 32px;
+      }
+
+      .promo-banner-content p {
+        font-size: 16px;
+      }
+
+      .promo-header h2 {
+        font-size: 20px;
+      }
+
+      .promo-products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+      }
+
+      .promo-product-title {
+        font-size: 14px;
+        height: 40px;
+      }
+
+      .promo-price-final {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .promo-banner {
+        height: 250px;
+        margin-bottom: 30px;
+      }
+
+      .promo-banner-content h1 {
+        font-size: 24px;
+      }
+
+      .promo-products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+      }
+
+      .promo-header .view-all-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+    }
+
+    /* ============ EMPTY STATE ============ */
+    .promo-empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+    }
+
+    .promo-empty-state i {
+      font-size: 48px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .promo-empty-state p {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="promo-container">
+    <!-- BANNER SECTION -->
+<!--BANNER-->
+<div class="hero-section">
+    <div class="hero-slider">
+        <div class="hero-track" id="heroTrack">
+
+            <!-- SLIDE 1 (2 ảnh) -->
+             <div class="hero-slide">
+                <img src="../images/banner11.jpg" class="full-banner">
+            </div>
+
+            <!-- SLIDE 2 (1 ảnh full) -->
+            <div class="hero-slide">
+                <img src="../images/BN.jpg">
+                <img src="../images/83e16d495595b912c25271aa99140d20.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+
+<STYLE>
+.hero-slider {
+    overflow: hidden;
+    width: 100%;
+}
+
+.hero-track {
+    display: flex;
+    transition: 0.5s;
+}
+
+/* mỗi slide */
+.hero-slide {
+    min-width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+/* ảnh mặc định (slide 1) */
+.hero-slide img {
+    width: 50%;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* slide 2 full */
+.full-banner {
+    width: 100% !important;
+}
+</STYLE>
+
+
+<script>
+let heroIndex = 0;
+
+setInterval(() => {
+    heroIndex++;
+
+    if (heroIndex > 1) heroIndex = 0;
+
+    document.getElementById("heroTrack").style.transform =
+        "translateX(" + (-heroIndex * 100) + "%)";
+}, 3000);
+</script>
+
+
+
+<!-- ĐẠI TIỆC ƯU ĐÃI-->
+ <style>
+    /* Nhúng Font chữ để đảm bảo tiêu đề đẹp như mẫu */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto:wght@400;700&display=swap');
+
+    .dtud-container-wrapper {
+        width: 100%;
+        background-color: #fff; /* Nền trắng sạch sẽ */
+        padding: 50px 0;
+        clear: both; /* Chống tràn từ các phần phía trên */
+    }
+
+    .dtud-inner {
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 15px;
+        font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    /* 1. Header: Tiêu đề và Nút Xem tất cả */
+    .dtud-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .dtud-title-text {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 26px;
+        color: #333;
+        text-transform: uppercase;
+        margin: 0;
+        letter-spacing: -0.5px;
+    }
+
+    .dtud-link-all {
+        background-color: #ff6b00; /* Màu cam Guardian */
+        color: #ffffff !important;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 14px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .dtud-link-all:hover {
+        background-color: #e66000;
+        transform: scale(1.05);
+    }
+
+    /* 2. Khối 3 Banner Khuyến Mãi (Mua là có quà) */
+    .dtud-banners-row {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; 
+        margin-bottom: 35px;
+    }
+
+    .dtud-promo-item {
+        width: 100%;
+        height: 220px;
+        border-radius: 12px;
+        overflow: hidden;
+        display: block;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .dtud-promo-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .dtud-promo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Chống móp méo ảnh banner */
+    }
+
+    /* 3. Lưới 5 Sản Phẩm Bán Chạy */
+    .dtud-products-row {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important; /* Ép 5 cột trên 1 hàng */
+        gap: 15px;
+    }
+
+    /* Thẻ sản phẩm (Link) */
+    .dtud-product-card {
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        transition: 0.3s;
+        position: relative;
+    }
+
+    .dtud-product-card:hover {
+        border-color: #ff6b00;
+        box-shadow: 0 8px 20px rgba(255, 107, 0, 0.1);
+    }
+
+    /* Khung ảnh sản phẩm */
+    .dtud-img-frame {
+        width: 100%;
+        height: 160px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dtud-img-frame img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; 
+    }
+
+    /* Nội dung chữ */
+    .dtud-p-brand {
+        font-size: 11px;
+        color: #999;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .dtud-p-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: #333;
+        height: 38px;
+        overflow: hidden;
+        line-height: 1.4;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .dtud-p-stars {
+        color: #ffb400;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    /* Giá tiền */
+    .dtud-price-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: auto; /* Đẩy giá xuống đáy thẻ */
+    }
+
+    .dtud-price-now {
+        color: #ee2624;
+        font-weight: 800;
+        font-size: 16px;
+    }
+
+    .dtud-price-old {
+        color: #bbb;
+        text-decoration: line-through;
+        font-size: 11px;
+    }
+
+    .dtud-sale-tag {
+        background-color: #ee2624;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+</style>
+
+<div class="dtud-container-wrapper">
+    <div class="dtud-inner">
+        
+        <div class="dtud-header">
+            <h2 class="dtud-title-text">Đại Tiệc Ưu Đãi</h2>
+            <a href="index.html" class="dtud-link-all" target="_blank">XEM TẤT CẢ ></a>
+        </div>
+
+        <div class="dtud-banners-row">
+            <a href="link-khuyen-mai-1.html" class="dtud-promo-item">
+                <img src="../images/111.jpg">
+            </a>
+            <a href="link-khuyen-mai-2.html" class="dtud-promo-item">
+                <img src="../images/222.jpg" alt="Promo 2">
+            </a>
+            <a href="link-khuyen-mai-3.html" class="dtud-promo-item">
+                <img src="../images/333.jpg" alt="Promo 3">
+            </a>
+        </div>
+
+    <!-- SECTION 1: TOP BÁN CHẠY -->
+    <section class="promo-section" id="top-ban-chay">
+      <div class="promo-header">
+        <h2><i class="fas fa-fire icon"></i> TOP BÁN CHẠY</h2>
+        <button class="view-all-btn" onclick="goToCategory('bestseller')">VIEW ALL ></button>
+      </div>
+      <div class="promo-products-grid" id="topBanChayGrid">
+        <!-- Products will be inserted here by JavaScript -->
+      </div>
+      <div class="promo-empty-state" id="topBanChayEmpty" style="display: none;">
+        <i class="fas fa-inbox"></i>
+        <p>Không có sản phẩm nào</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MUA LÀ CÓ QUÀ -->
+    <section class="promo-section" id="mua-la-co-qua">
+      <div class="promo-header">
+        <h2><i class="fas fa-gift icon"></i> MUA LÀ CÓ QUÀ</h2>
+        <button class="view-all-btn" onclick="goToCategory('gifts')">VIEW ALL ></button>
+      </div>
+      <div class="promo-products-grid" id="trangDiemGrid">
+        <!-- Products will be inserted here by JavaScript -->
+      </div>
+      <div class="promo-empty-state" id="muaLaCoQuaEmpty" style="display: none;">
+        <i class="fas fa-inbox"></i>
+        <p>Không có sản phẩm nào</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: TRANG ĐIỂM KHUYẾN MÃI -->
+    <section class="promo-section" id="trang-diem">
+      <div class="promo-header">
+        <h2><i class="fas fa-sparkles icon"></i> TRANG ĐIỂM KHUYẾN MÃI</h2>
+        <button class="view-all-btn" onclick="goToCategory('Trang điểm')">VIEW ALL ></button>
+      </div>
+      <div class="promo-products-grid" id="trangDiemGrid">
+        <!-- Products will be inserted here by JavaScript -->
+      </div>
+      <div class="promo-empty-state" id="trangDiemEmpty" style="display: none;">
+        <i class="fas fa-inbox"></i>
+        <p>Không có sản phẩm nào</p>
+      </div>
+    </section>
+  </main>
+  <!--section 4-->
+
+
+
+
+  <!-- FOOTER (REPLACE WITH YOUR EXISTING FOOTER) -->
+   <!--FOOTER-->
+  <footer class="footer">
+      <div class="footer-container">
+
+          <!-- Cột 1: Logo + thông tin -->
+          <div class="footer-col company">
+              <img src="../images/LOGO.png" alt="Guardian" class="logo">
+
+              <p><b>CÔNG TY TNHH MTV THƯƠNG MẠI <BR> VÀ ĐẦU TƯ LIÊN Á CHÂU</b></p>
+              <p>Giấy chứng nhận đăng ký doanh <BR> nghiệp số 0310618188</p>
+              <p>Tự sở chính: L2-VP-01, 346 Bến Vân Đồn, TP.HCM</p>
+              <p>Hotline: <span class="hotline">19004449</span></p>
+
+              
+          </div>
+
+          <!-- Cột 2: mạng xã hội + app -->
+          <div class="footer-col social">
+              <h3>Theo dõi chúng tôi</h3>
+              <div class="social-icons">
+
+      <div class="social-icons">
+      <a href="https://www.facebook.com/guardianvn" target="_blank">
+          <img src="../images/FB.JPG">
+      </a>
+
+      <a href="https://www.instagram.com/guardianvn" target="_blank">
+          <img src="../images/IG.JPG">
+      </a>
+
+      <a href="https://www.youtube.com/@guardianvietnam" target="_blank">
+          <img src="../images/YT.JPG">
+      </a>
+
+      <a href="https://www.tiktok.com/@guardianvietnam" target="_blank">
+          <img src="../images/TT.jpg">
+      </a>
+  </div>
+
+  </div>
+
+              <h3>Tải App Ngay</h3>
+              <img src="../images/QR.JPG" class="qr">
+
+              <div class="app">
+                  <a href="#"><img src="../images/ggplay_logo.png"></a>
+                  <a href="#"><img src="../images/appstore.png"></a>
+              </div>
+          </div>
+
+          <!-- Cột 3 -->
+          <div class="footer-col">
+              <h3>Về chúng tôi</h3>
+              <ul>
+                  <li><a href="#">Giới thiệu</a></li>
+                  <li><a href="#">Tin tức</a></li>
+                  <li><a href="#">Cẩm nang làm đẹp</a></li>
+                  <li><a href="#">Tuyển dụng</a></li>
+                  <li><a href="#">Đối điểm Hội Cam</a></li>
+                  <li><a href="#">Liên hệ</a></li>
+                  <li><a href="#">Địa chỉ cửa hàng</a></li>
+                  <li><a href="#">Hợp tác cùng Guardian</a></li>
+              </ul>
+          </div>
+
+          <!-- Cột 4 -->
+          <div class="footer-col">
+              <h3>Chính sách</h3>
+              <ul>
+                  <li><a href="#">Chính sách và quy định chung</a></li>
+                  <li><a href="#">Quy định thanh toán</a></li>
+                  <li><a href="#">Chính sách vận chuyển</a></li>
+                  <li><a href="#">Chính sách đổi trả</a></li>
+                  <li><a href="#">Bảo mật thông tin</a></li>
+                  <li><a href="#">Hướng dẫn mua hàng</a></li>
+                  <li><a href="#">Xuất hóa đơn</a></li>
+                  <li><a href="#">Điều khoản sử dụng</a></li>
+              </ul>
+          </div>
+
+      </div>
+  </footer>
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast"></div>
+
+  <!-- SCRIPTS -->
+
+  <script>
+    // Initialize page on load
+    document.addEventListener('DOMContentLoaded', function() {
+      renderPromoPage();
+      handleAnchorScroll();
+    });
+
+    // Handle hash-based smooth scrolling
+    window.addEventListener('hashchange', handleAnchorScroll);
+  </script>
+  <div id="cartModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
+        <div class="bg-white w-full max-w-md mx-4 rounded-3xl overflow-hidden">
+
+
+        </div>
+    </div>
+
+        <div class="container" id="account-user">
+            <div class="main-account">
+                <div class="main-account-header">
+                    <h3>Thông tin tài khoản của bạn</h3>
+                    <p>Quản lý thông tin để bảo mật tài khoản</p>
+                </div>
+                <div class="main-account-body">
+                    <div class="main-account-body-col">
+                        <form action="" class="info-user">
+                            <div class="form-group">
+                                <label for="infoname" class="form-label">Họ và tên</label>
+                                <input class="form-control" type="text" name="infoname" id="infoname" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="infophone" class="form-label">Số điện thoại</label>
+                                <input class="form-control" type="text" name="infophone" id="infophone" disabled="true"
+                                    placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="infoemail" class="form-label">Email</label>
+                                <input class="form-control" type="email" name="infoemail" id="infoemail"
+                                    placeholder="Thêm địa chỉ email của bạn">
+                                <span class="inforemail-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="infoaddress" class="form-label">Địa chỉ</label>
+                                <input class="form-control" type="text" name="infoaddress" id="infoaddress"
+                                    placeholder="Thêm địa chỉ giao hàng của bạn">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="main-account-body-col">
+                        <form action="" class="change-password">
+                            <div class="form-group">
+                                <label for="" class="form-label w60">Mật khẩu hiện tại</label>
+                                <input class="form-control" type="password" name="" id="password-cur-info"
+                                    placeholder="Nhập mật khẩu hiện tại">
+                                <span class="password-cur-info-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label w60">Mật khẩu mới </label>
+                                <input class="form-control" type="password" name="" id="password-after-info"
+                                    placeholder="Nhập mật khẩu mới">
+                                <span class="password-after-info-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label w60">Xác nhận mật khẩu mới</label>
+                                <input class="form-control" type="password" name="" id="password-comfirm-info"
+                                    placeholder="Nhập lại mật khẩu mới">
+                                <span class="password-after-comfirm-error form-message"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="main-account-body-row">
+                        <div>
+                            <button id="save-info-user" onclick="changeInformation()"><i
+                                    class="fa-regular fa-floppy-disk"></i> Lưu thay đổi</button>
+                        </div>
+                        <div>
+                            <button id="save-password" onclick="changePassword()"><i class="fa-regular fa-key"></i> Đổi
+                                mật khẩu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="order-history">
+            <div class="main-account">
+                <div class="main-account-header">
+                    <h3>Quản lý đơn hàng của bạn</h3>
+                    <p>Xem chi tiết, trạng thái của những đơn hàng đã đặt.</p>
+                </div>
+                <div class="main-account-body">
+                    <div class="order-history-section">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="modal product-detail">
+        <button class="modal-close close-popup"><i class="fa-thin fa-xmark"></i></button>
+        <div class="modal-container mdl-cnt" id="product-detail-content">
+        </div>
+    </div>
+    <div class="modal signup-login">
+        <div class="modal-container">
+            <button class="form-close" onclick="closeModal()"><i class="fa-regular fa-xmark"></i></button>
+            <div class="forms mdl-cnt">
+                <div class="form-content sign-up">
+                    <h3 class="form-title">
+                        Đăng ký tài khoản
+                    </h3>
+                    <p class="form-description">Đăng ký thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúng
+                        tôi </p>
+                    <form action="" class="signup-form">
+                        <div class="form-group">
+                            <label for="fullname" class="form-label">Tên đầy đủ</label>
+                            <input id="fullname" name="fullname" type="text" placeholder="VD: Nhật Sinh"
+                                class="form-control">
+                            <span class="form-message-name form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại"
+                                class="form-control">
+                            <span class="form-message-phone form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu"
+                                class="form-control">
+                            <span class="form-message-password form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                            <input id="password_confirmation" name="password_confirmation"
+                                placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+                            <span class="form-message-password-confi form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="checkbox" name="checkbox" required="" type="checkbox" id="checkbox-signup">
+                            <label for="checkbox-signup" class="form-checkbox"><a href="#"
+                                    title="chính sách trang web" target="_blank">Tôi đồng ý với chính sách trang web</a></label>
+                            <p class="form-message-checkbox form-message"></p>
+                        </div>
+                        <button class="form-submit" id="signup-button">Đăng ký</button>
+                    </form>
+                    <p class="change-login">Bạn đã có tài khoản ? <a href="javascript:;" class="login-link">Đăng nhập
+                            ngay</a></p>
+                </div>
+                <div class="form-content login">
+                    <h3 class="form-title">Đăng nhập tài khoản</h3>
+                    <p class="form-description">Đăng nhập thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúng
+                        tôi</p>
+                    <form action="" class="login-form">
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            <input id="phone-login" name="phone" type="text" placeholder="Nhập số điện thoại"
+                                class="form-control">
+                            <span class="form-message phonelog"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input id="password-login" name="password" type="password" placeholder="Nhập mật khẩu"
+                                class="form-control">
+                            <span class="form-message-check-login form-message"></span>
+                        </div>
+                        <button class="form-submit" id="login-button">Đăng nhập</button>
+                    </form>
+                    <p class="change-login">Bạn chưa có tài khoản ? <a href="javascript:;" class="signup-link">Đăng kí
+                            ngay</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-cart">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h3 class="cart-header-title"><i class="fa-light fa-basket-shopping"></i> Giỏ hàng</h3>
+                <button class="cart-close" onclick="closeCart()"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-body">
+                <div class="gio-hang-trong">
+                    <i class="fa-thin fa-cart-xmark"></i>
+                    <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                </div>
+                <ul class="cart-list">
+                </ul>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total-price">
+                    <p class="text-tt">Tổng tiền:</p>
+                    <p class="text-price">0đ</p>
+                </div>
+                <div class="cart-footer-payment">
+                    <button class="them-mon"><i class="fa-regular fa-plus"></i> Thêm món</button>
+                    <button class="thanh-toan disabled">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal detail-order">
+        <div class="modal-container mdl-cnt">
+            <h3 class="modal-container-title">Thông tin đơn hàng</h3>
+            <button class="form-close" onclick="closeModal()"><i class="fa-regular fa-xmark"></i></button>
+            <div class="detail-order-content">
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="back-to-top">
+        <a href="#"><i class="fa-regular fa-arrow-up"></i></a>
+    </div>
+    <div class="checkout-page">
+        <div class="checkout-header">
+            <div class="checkout-return">
+                <button onclick="closecheckout()"><i class="fa-regular fa-chevron-left"></i></button>
+            </div>
+            <h2 class="checkout-title">Thanh toán</h2>
+        </div>
+        <main class="checkout-section container">
+            <div class="checkout-col-left">
+                <div class="checkout-row">
+                    <div class="checkout-col-title">
+                        Thông tin đơn hàng
+                    </div>
+                    <div class="checkout-col-content">
+                        <div class="content-group">
+                            <p class="checkout-content-label">Hình thức giao nhận</p>
+                            <div class="checkout-type-order">
+                                <button class="type-order-btn active" id="giaotannoi">
+                                    <i class="fa-duotone fa-moped"
+                                        style="--fa-secondary-opacity: 1.0; --fa-primary-color: dodgerblue; --fa-secondary-color: #ffb100;"></i>
+                                    Giao tận nơi
+                                </button>
+                                <button class="type-order-btn" id="tudenlay">
+                                    <i class="fa-duotone fa-box-heart"
+                                        style="--fa-secondary-opacity: 1.0; --fa-primary-color: pink; --fa-secondary-color: palevioletred;"></i>
+                                    Tự đến lấy
+                                </button>
+                            </div>
+                        </div>
+                        <div class="content-group">
+                            <p class="checkout-content-label">Ngày giao hàng</p>
+                            <div class="date-order">
+                            </div>
+                        </div>
+                        <div class="content-group chk-ship" id="giaotannoi-group">
+                            <p class="checkout-content-label">Thời gian giao hàng</p>
+                            <div class="delivery-time">
+                                <input type="radio" name="giaongay" id="giaongay" class="radio">
+                                <label for="giaongay">Giao ngay khi xong</label>
+                            </div>
+                            <div class="delivery-time">
+                                <input type="radio" name="giaongay" id="deliverytime" class="radio">
+                                <label for="deliverytime">Giao vào giờ</label>
+                                <select class="choise-time">
+                                    <option data-hours="08" value="08:00" selected="selected">08:00 - 09:00</option>
+
+                                    <option data-hours="09" value="09:00">09:00 - 10:00</option>
+
+                                    <option data-hours="10" value="10:00"> 10:00 - 11:00</option>
+
+                                    <option data-hours="11" value="11:00"> 11:00 - 12:00</option>
+
+                                    <option data-hours="12" value="12:00"> 12:00 - 13:00</option>
+
+                                    <option data-hours="13" value="13:00"> 13:00 - 14:00</option>
+
+                                    <option data-hours="14" value="14:00"> 14:00 - 15:00</option>
+
+                                    <option data-hours="15" value="15:00"> 15:00 - 16:00</option>
+
+                                    <option data-hours="16" value="16:00"> 16:00 - 17:00</option>
+
+                                    <option data-hours="17" value="17:00"> 17:00 - 18:00</option>
+
+                                    <option data-hours="18" value="18:00"> 18:00 - 19:00</option>
+
+                                    <option data-hours="19" value="19:00"> 19:00 - 20:00</option>
+
+                                    <option data-hours="20" value="20:00"> 20:00 - 21:00</option>
+
+                                    <option data-hours="21" value="21:00"> 21:00 - 22:00</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="content-group" id="tudenlay-group">
+                            <p class="checkout-content-label">Lấy hàng tại chi nhánh</p>
+                            <div class="delivery-time">
+                                <input type="radio" name="chinhanh" id="chinhanh-1" class="radio">
+                                <label for="chinhanh-1">273 An Dương Vương, Phường 3, Quận 5</label>
+                            </div>
+                            <div class="delivery-time">
+                                <input type="radio" name="chinhanh" id="chinhanh-2" class="radio">
+                                <label for="chinhanh-2">04 Tôn Đức Thắng, Phường Bến Nghé, Quận 1</label>
+                            </div>
+                        </div>
+                        <div class="content-group">
+                            <p class="checkout-content-label">Ghi chú đơn hàng</p>
+                            <textarea type="text" class="note-order" placeholder="Nhập ghi chú"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-row">
+                    <div class="checkout-col-title">
+                        Thông tin người nhận
+                    </div>
+                    <div class="checkout-col-content">
+                        <div class="content-group">
+                            <form action="" class="info-nhan-hang">
+                                <div class="form-group">
+                                    <input id="tennguoinhan" name="tennguoinhan" type="text"
+                                        placeholder="Tên người nhận" class="form-control">
+                                    <span class="form-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input id="sdtnhan" name="sdtnhan" type="text" placeholder="Số điện thoại nhận hàng"
+                                        class="form-control">
+                                    <span class="form-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input id="diachinhan" name="diachinhan" type="text" placeholder="Địa chỉ nhận hàng"
+                                        class="form-control chk-ship">
+                                    <span class="form-message"></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-col-right">
+                <p class="checkout-content-label">Đơn hàng</p>
+                <div class="bill-total" id="list-order-checkout">
+                </div>
+                <div class="bill-payment">
+                    <div class="total-bill-order">
+                    </div>
+                    <div class="policy-note">
+                        Bằng việc bấm vào nút "Đặt hàng", tôi đồng ý với
+                        <a href="#" target="_blank">chính sách hoạt động</a>
+                        của chúng tôi.
+                    </div>
+                </div>
+                <div class="total-checkout">
+                    <div class="text">Tổng tiền</div>
+                    <div class="price-bill">
+                        <div class="price-final" id="checkout-cart-price-final">0</div>
+                    </div>
+                </div>
+                <button class="complete-checkout-btn">Đặt hàng</button>
+            </div>
+        </main>
+    </div>
+    <script src="./js/initialization.js"></script>
+    <script src="./js/filter-products.js"></script>
+    <script src="./js/qutri.js"></script>
+    <script src="./js/checkout.js"></script>
+    <script src="./js/toast-message.js"></script>
+    <script src="./js/account-management.js"></script>
+    <script src="./js/product-list.js"></script>
+</body>
+</html>
+</body>
+</html>

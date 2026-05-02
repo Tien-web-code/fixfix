@@ -1,0 +1,1276 @@
+    :root {
+      --orange: #ff7a00;
+      --red: #ff7a00;
+      --text-dark: #333;
+      --text-light: #888;
+      --bg-light: #f5f5f5;
+      --white: #fff;
+    }
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      background: var(--bg-light);
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 30px;
+    }
+    .breadcrumb-list {
+      display: flex;
+      gap: 8px;
+      max-width: 1130px;
+      margin: 0 auto;
+      padding: 0 10px;
+      list-style: none;
+    }
+    .breadcrumb-list li {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .breadcrumb-list li a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .breadcrumb-list li:not(:last-child)::after {
+      content: "/";
+      margin-left: 8px;
+      color: #ddd;
+    }
+    /* ===== PRODUCT DETAIL CONTAINER ===== */
+    .product-detail-wrapper {
+      max-width: 1130px;
+      margin: 0 auto;
+      padding: 0 10px 60px;
+    }
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 45% 55%;
+      gap: 40px;
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    /* ===== LEFT: PRODUCT IMAGE ===== */
+    .product-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .product-main-img {
+      width: 100%;
+      height: 400px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .product-thumbnails {
+      display: flex;
+      gap: 8px;
+    }
+    .thumbnail {
+      width: 70px;
+      height: 70px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .thumbnail:hover,
+    .thumbnail.active {
+      border-color: var(--orange);
+    }
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    /* ===== RIGHT: PRODUCT INFO ===== */
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .product-header {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+    .best-seller-badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #ff9800;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .product-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .stars {
+      display: flex;
+      color: #ffb800;;
+    }
+    .stars i {
+      font-size: 12px;
+    }
+    .review-count {
+      color: var(--orange);
+      font-weight: 500;
+    }
+    .sold-count {
+      color: var(--text-light);
+    }
+    /* ===== PRICE SECTION ===== */
+    .price-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+}
+
+.price-current {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.price-old-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  margin-top: 5px;
+}
+
+.price-old {
+  font-size: 16px;
+  text-decoration: line-through;
+  color: var(--text-light);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 1px;
+  left: 30%;
+  transform: translateX(100%);
+  background: var(--orange);
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 122, 0, 0.3);
+}
+    /* ===== SIZE/OPTION SECTION ===== */
+    .product-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .option-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .option-label {
+      font-weight: 600;
+      min-width: 80px;
+      color: var(--text-dark);
+    }
+    .option-values {
+      display: flex;
+      gap: 10px;
+    }
+    .option-btn {
+      padding: 8px 16px;
+      border: 2px solid #ddd;
+      background: var(--white);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.3s;
+    }
+    .option-btn:hover,
+    .option-btn.active {
+      border-color: var(--orange);
+      background: #fff5eb;
+      color: var(--orange);
+      font-weight: 600;
+    }
+    /* ===== QUANTITY SECTION ===== */
+    .quantity-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .quantity-btn {
+      width: 35px;
+      height: 35px;
+      border: none;
+      background: var(--bg-light);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .quantity-btn:hover {
+      background: #ddd;
+    }
+    .quantity-input {
+      width: 50px;
+      border: none;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    /* ===== ACTION BUTTONS ===== */
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .btn-add-cart {
+      flex: 1;
+      padding: 10px 20px;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-add-cart:hover {
+      background: #ff6600;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
+    }
+    .btn-buy-now {
+      flex: 1;
+      padding: 10px 20px;
+      background: #ff5555;
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-buy-now:hover {
+      background: #ff3333;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 85, 85, 0.3);
+    }
+
+
+    /* ===== VOUCHER SECTION ===== */
+    .voucher-section {
+      background: var(--bg-light);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px dashed #ffb800;
+    }
+    .voucher-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ff9800;
+      margin-bottom: 10px;
+    }
+    .voucher-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .voucher-tag {
+      background: var(--white);
+      border: 1px dashed #ffb800;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .voucher-tag:hover {
+      background: #fff3cd;
+    }
+    /* ===== BENEFITS SECTION ===== */
+    .benefits-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      padding: 20px 0;
+    }
+    .benefit-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .benefit-icon {
+      font-size: 18px;
+      color: var(--orange);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .benefit-text {
+      font-size: 12px;
+      color: var(--text-dark);
+      line-height: 1.4;
+    }
+    .benefit-text strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+    /* ===== DESCRIPTION SECTION ===== */
+    .product-description {
+      margin-top: 60px;
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .description-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+    }
+    .description-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .product-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 15px;
+      }
+      .product-title {
+        font-size: 18px;
+      }
+      .price-current {
+        font-size: 24px;
+      }
+      .action-buttons {
+        flex-direction: column;
+      }
+      .benefits-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* ============ REVIEW SECTION ============ */
+
+.review-wrapper {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 15px;
+}
+
+.review-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== REVIEW STATS ========== */
+.review-stats {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    padding: 40px;
+    background: linear-gradient(135deg, #fff9f7 0%, #fff 100%);
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stats-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.stats-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.rating-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.avg-rating {
+    font-size: 48px;
+    font-weight: 800;
+    color: #ff5722;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 4px;
+    font-size: 18px;
+    color: #ffc107;
+}
+
+.review-count {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ========== RATING DISTRIBUTION ========== */
+.stats-right {
+    display: flex;
+    align-items: center;
+}
+
+.rating-distribution {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.distribution-item {
+    display: grid;
+    grid-template-columns: 60px 1fr 50px;
+    align-items: center;
+    gap: 12px;
+}
+
+.distribution-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+}
+
+.distribution-bar {
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.distribution-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff5722, #ff9800);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.distribution-count {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
+/* ========== REVIEW FORM ========== */
+.review-form-wrapper {
+    padding: 40px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+.form-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    color: #ff5722
+}
+
+.form-title i {
+    color: #ff5722;
+    font-size: 22px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.review-input,
+.review-textarea {
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+    background: white;
+}
+
+.review-input:focus,
+.review-textarea:focus {
+    outline: none;
+    border-color: #ff5722;
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+}
+
+.review-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.textarea-counter {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
+/* ========== RATING SELECTOR ========== */
+.rating-selector {
+    display: flex;
+    gap: 12px;
+    margin: 8px 0;
+}
+
+.star-btn {
+    width: 44px;
+    height: 44px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    font-size: 20px;
+    color: #ffc107;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.star-btn:hover,
+.star-btn.hover {
+    border-color: #ff5722;
+    background: #fff9f7;
+    transform: scale(1.1);
+}
+
+.star-btn.selected {
+    border-color: #ff5722;
+    background: #ff5722;
+    color: white;
+}
+
+.selected-rating {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.form-error {
+    display: block;
+    font-size: 12px;
+    color: #ff5722;
+    margin-top: 4px;
+    min-height: 16px;
+}
+
+/* ========== SUBMIT BUTTON ========== */
+.btn-submit-review {
+    padding: 14px 28px;
+    background: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-submit-review:hover {
+    background: #e64a19;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+}
+
+.btn-submit-review:active {
+    transform: translateY(0);
+}
+
+/* ========== REVIEWS LIST ========== */
+.reviews-list-wrapper {
+    padding: 40px;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ========== REVIEW ITEM ========== */
+.review-item {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #ff5722;
+    transition: all 0.3s;
+}
+
+.review-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateX(4px);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.review-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff5722, #ff9800);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.author-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.review-date {
+    font-size: 12px;
+    color: #999;
+}
+
+.btn-delete-review {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 4px;
+}
+
+.btn-delete-review:hover {
+    color: #ff5722;
+}
+
+.review-rating {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.review-content {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    word-break: break-word;
+}
+
+.review-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-like-review {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.btn-like-review:hover {
+    border-color: #ff5722;
+    color: #ff5722;
+    background: #fff9f7;
+}
+
+.like-count {
+    font-weight: 600;
+}
+
+/* ========== NO REVIEWS ========== */
+.no-reviews {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 60px 20px;
+    text-align: center;
+    color: #999;
+}
+
+.no-reviews i {
+    font-size: 48px;
+    opacity: 0.5;
+}
+
+.no-reviews p {
+    margin: 0;
+    font-size: 14px;
+    color: #999;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .review-stats {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 30px 20px;
+    }
+
+    .review-form-wrapper,
+    .reviews-list-wrapper {
+        padding: 25px 15px;
+    }
+
+    .review-item {
+        padding: 15px;
+    }
+
+    .star-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .review-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-delete-review {
+        align-self: flex-end;
+    }
+}
+/* ============ CHECKOUT PAGE - FIXED STYLES ============ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* ============ CART CONTAINER FIX ============ */
+.cart-container {
+    position: relative;
+    width: 100%;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-header-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.cart-close:hover {
+    color: #ff5722;
+}
+
+/* ============ BADGE NUMBER FIX ============ */
+.count-product-cart {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff5722;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.cart-icon-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.cart-icon-menu i {
+    font-size: 20px;
+}
+
+/* ============ DELIVERY METHODS ============ */
+.type-order-btn {
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+    justify-content: center;
+}
+
+.type-order-btn:hover {
+    border-color: #ff5722;
+    background: #fff9f7;
+    color: #333;
+}
+
+.type-order-btn.active {
+    border-color: #ff5722;
+    background: #ff5722;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+}
+
+.type-order-btn i {
+    font-size: 18px;
+}
+
+/* ============ DELIVERY DATE PICKER ============ */
+.date-order {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pick-date {
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 120px;
+    text-align: center;
+}
+
+.pick-date:hover {
+    border-color: #ff5722;
+    background: #fff9f7;
+}
+
+.pick-date.active {
+    border-color: #ff5722;
+    background: #ff5722;
+    color: white;
+}
+
+.pick-date .text {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pick-date .date {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.pick-date.active .date {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============ FORM INPUTS ============ */
+.form-control {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #ff5722;
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+}
+
+.form-control.error {
+    border-color: #ff0000 !important;
+    background: #fff5f5;
+}
+
+/* ============ DELIVERY OPTIONS ============ */
+.checkout-type-order {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.content-group {
+    margin-bottom: 20px;
+}
+
+.checkout-content-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+/* ============ ORDER SUMMARY ============ */
+.food-total {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.food-total:last-child {
+    border-bottom: none;
+}
+
+.count {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    min-width: 30px;
+}
+
+.info-food {
+    flex: 1;
+}
+
+.name-food {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.food-price {
+    font-size: 12px;
+    color: #999;
+}
+
+.food-subtotal {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ff5722;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* ============ PRICE DISPLAY ============ */
+.priceFlx {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.priceFlx .text {
+    color: #666;
+    font-weight: 500;
+}
+
+.priceFlx .count {
+    color: #ff5722;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+.priceFlx .price-detail {
+    font-weight: 700;
+    color: #333;
+}
+
+.priceFlx .price-detail span {
+    color: #ff5722;
+}
+
+.priceFlx.chk-ship {
+    border-bottom: 2px solid #ff5722;
+    padding: 15px 0;
+    margin-bottom: 15px;
+}
+
+#checkout-cart-price-final {
+    color: #ff5722;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* ============ BUTTONS ============ */
+.complete-checkout-btn {
+    width: 100%;
+    padding: 14px;
+    background: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.complete-checkout-btn:hover {
+    background: #e64a19;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+}
+
+.complete-checkout-btn:active {
+    transform: translateY(0);
+}
+
+/* ============ TOAST NOTIFICATIONS ============ */
+#toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 10000;
+}
+
+.toast {
+    background: white;
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    animation: slideInRight 0.3s ease;
+    min-width: 320px;
+}
+
+.toast--success {
+    border-left: 4px solid #22c55e;
+}
+
+.toast--success .toast-icon {
+    color: #22c55e;
+}
+
+.toast--error {
+    border-left: 4px solid #ff0000;
+}
+
+.toast--error .toast-icon {
+    color: #ff0000;
+}
+
+.toast--warning {
+    border-left: 4px solid #ff9800;
+}
+
+.toast--warning .toast-icon {
+    color: #ff9800;
+}
+
+.toast-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.toast-body {
+    flex: 1;
+}
+
+.toast-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.toast-msg {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+    .checkout-type-order {
+        grid-template-columns: 1fr;
+    }
+
+    .type-order-btn {
+        min-width: 100%;
+    }
+
+    .date-order {
+        flex-direction: column;
+    }
+
+    .pick-date {
+        width: 100%;
+        min-width: auto;
+    }
+
+    #toast {
+        left: 10px;
+        right: 10px;
+    }
+
+    .toast {
+        min-width: auto;
+        width: 100%;
+    }
+}

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách sản phẩm</title>
+  <link rel="stylesheet" type="text/css" href="topbar.css" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/search.css"/>
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="./assets/css/product-detail.css"/>  
+  <link rel="stylesheet" href="./assets/css/home-responsive.css">
+  <link rel="stylesheet" href="./assets/font/font-awesome-pro-v6-6.2.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./assets/css/account-management.css"/>
+  <link rel="stylesheet" href="./assets/css/product-list.css"/>
+  <script src="./js/notifition.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./assets/css/cart.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+ 
+    
+</head>
+<body>
+<div class="top-bar">
+    <div class="top-bar-content">
+        IP25K - GIẢM NGAY 25K CHO ĐƠN HÀNG 99K 
+        NHẬP MÃ T04FREESHIP20K - GIẢM NGAY 20K
+    </div>
+</div>
+<div>
+  <div class="header">
+    <!-- MENU TRÊN -->
+    <!-- MAIN -->
+    <div class="header-main">
+        <!-- LOGO -->
+        <div class="logo">
+    <img src="../images/LOGO3.png" alt="logo">
+  </div>
+  <div class="search-box position-relative">
+    <i class="fa fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Nhập tên sản phẩm cần tìm..." autocomplete="off">
+    <div id="searchDropdown" class="search-dropdown">
+        <div id="boxSP">
+            <h4>TỪ KHÓA GỢI Ý</h4>
+            <ul id="listTuKhoa" class="suggested-keywords" style="margin-bottom: 20px;"></ul>
+            
+            <h4>SẢN PHẨM LIÊN QUAN</h4>
+            <div id="listSanPham" class="search-product-list"></div>
+        </div>
+        <div id="boxTH" style="display:none; margin-top: 15px;">
+            <h4>THƯƠNG HIỆU NỔI BẬT</h4>
+            <div id="listThuongHieu" class="search-brand-tags"></div>
+        </div>
+    </div>
+  </div>
+  <script src="./js/search.js"></script>
+  <div>
+    <div class="header-middle-right">
+      <ul class="header-middle-right-list">
+            <li class="header-middle-right-item dropdown">
+              <i class="fa-light fa-user"></i>
+              <div class="auth-container">
+                <span class="text-tk">Tài khoản <i class="fa-sharp fa-solid fa-caret-down"></i></span>
+              </div>
+              <ul class="header-middle-right-menu">
+                <li><a id="login" href="javascript:;"><i class="fa-light fa-right-to-bracket"></i> Đăng nhập</a></li>
+                <li><a id="signup" href="javascript:;"><i class="fa-light fa-user-plus"></i> Đăng ký</a></li>
+              </ul>
+            </li>
+            <li class="header-middle-right-item" onclick="openCart()">
+              <div class="cart-icon-menu">
+                <i class="fa-light fa-basket-shopping"></i>
+                <span class="count-product-cart">0</span>
+              </div>
+              <span>Giỏ hàng</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal signup-login">
+        <div class="modal-container">
+          <button class="form-close" onclick="closeModal()"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+          <div class="forms mdl-cnt">
+            <div class="form-content sign-up">
+        <h3 class="form-title">Đăng ký tài khoản</h3>
+        <p class="form-description">Đăng ký thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúng tôi </p>
+        <form action="" class="signup-form">
+          <div class="form-group">
+            <label for="fullname" class="form-label">Tên đầy đủ</label>
+            <input id="fullname" name="fullname" type="text" placeholder="VD: Nhật Sinh" class="form-control">
+            <span class="form-message-name form-message"></span>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại" class="form-control">
+            <span class="form-message-phone form-message"></span>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message-password form-message"></span>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+            <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+            <span class="form-message-password-confi form-message"></span>
+          </div>
+          <div class="form-group">
+            <input class="checkbox" name="checkbox" required="" type="checkbox" id="checkbox-signup">
+            <label for="checkbox-signup" class="form-checkbox"><a href="#"title="Tôi đồng ý với chính sách trang web" target="_blank">Tôi đồng ý với chính sách trang web</a></label>
+            <p class="form-message-checkbox form-message"></p>
+          </div>
+          <button class="form-submit" id="signup-button">Đăng ký</button>
+        </form>
+        <p class="change-login">Bạn đã có tài khoản ? <a href="javascript:;" class="login-link">Đăng nhập ngay</a></p>
+      </div>
+      <div class="form-content login">
+        <h3 class="form-title">Đăng nhập tài khoản</h3>
+        <p class="form-description">Đăng nhập thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúngtôi</p>
+        <form action="" class="login-form">
+          <div class="form-group">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input id="phone-login" name="phone" type="text" placeholder="Nhập số điện thoại" class="form-control">
+            <span class="form-message phonelog"></span>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input id="password-login" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message-check-login form-message"></span>
+          </div>
+          <button class="form-submit" id="login-button">Đăng nhập</button>
+        </form>
+        <p class="change-login">Bạn chưa có tài khoản ? <a href="javascript:;" class="signup-link">Đăng kí ngay</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-cart">
+  <div class="cart-container">
+    <div class="cart-header">
+        <h3 class="cart-header-title"><i class="fa-light fa-basket-shopping"></i> Giỏ hàng của bạn</h3>
+        <button class="cart-close" onclick="closeCart()"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-body">
+        <div class="gio-hang-trong">
+            <i class="fa-thin fa-cart-xmark"></i>
+            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+        </div>
+        <ul class="cart-list">
+        </ul>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total-price">
+            <p class="text-tt">Tổng tiền:</p>
+            <p class="text-price">0đ</p>
+        </div>
+        <div class="cart-footer-payment">
+            <button class="them-mon"><i class="fa-regular fa-plus"></i> Thêm món</button>
+            <button class="thanh-toan disabled">Thanh toán</button>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+  <header class="header-nav">
+    <div class="nav-container">
+        <div class="nav-item-wrap">
+            <a href="topbar.html" class="nav-item"><i class="fa-solid fa-house"></i> TRANG CHỦ</a>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="khuyenmai.html?promo=sale-50" class="nav-item">🔥 KHUYẾN MÃI HOT 🔥 <i class="fa-solid fa-angle-down" style="font-size: 11px;"></i></a>
+            <div class="simple-dropdown">
+                <ul>
+                    <li><a href="khuyenmai.html#top-sales">Flash Sale Giờ Vàng</a></li>
+                    <li><a href="khuyenmai.html#mua-la-co-qua">Mua là có quà</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="index.html" class="nav-item">SẢN PHẨM <i class="fa-solid fa-angle-down" style="font-size: 11px;"></i></a>
+            <div class="simple-dropdown">
+                <ul>
+                        <li><a href="index.html?category=Nước%20hoa">Nước hoa</a></li>
+                        <li><a href="index.html?category=Chăm%20sóc%20cơ%20thể">Chăm sóc cơ thể</a></li>
+                        <li><a href="index.html?category=Chăm%20sóc%20tóc">Chăm sóc tóc</a></li>
+                        <li><a href="index.html?category=Chăm%20sóc%20da%20mặt">Chăm sóc da mặt</a></li>
+                         <li><a href="index.html?category=Trang%20điểm">Trang điểm</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="Trangtv.html" class="nav-item">GIỚI THIỆU</a>
+        </div>
+        <div class="nav-item-wrap">
+            <a href="lien-he.html" class="nav-item">LIÊN HỆ</a>
+        </div>
+        </header>
+</div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <ul class="breadcrumb-list">
+      <li><a href="index.html">Trang chủ</a></li>
+      <li><a href="index.html">Chăm sóc da mặt</a></li>
+      <li id="breadcrumb-product">Kem chống nắng</li>
+    </ul>
+  </div>
+  <!-- PRODUCT DETAIL -->
+  <div class="product-detail-wrapper">
+    <div class="product-detail-grid">
+      <!-- LEFT: IMAGE -->
+      <div class="product-gallery">
+        <div class="product-main-img">
+          <img id="mainImg" src="">
+        </div>
+        <div class="product-thumbnails">
+          <div class="thumbnail active" onclick="changeImage(this)">
+            <img id="thumb1" src="">
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: INFO -->
+      <div class="product-info">
+        <!-- HEADER -->
+        <div class="product-header">
+          <span class="best-seller-badge"><i class="fa-solid fa-fire"></i> BEST SELLER</span>
+          <h1 class="product-title" id="productTitle"></h1>
+          <div class="product-rating">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half"></i>
+            </div>
+            <span id="ratingValue">4.9</span>
+            <span class="review-count" id="reviewCount">245 đánh giá</span>
+            <span class="sold-count" id="soldCount">| 3,200 đã bán</span>
+          </div>
+        </div>
+        <!-- PRICE -->
+        <div class="price-section">
+          <span class="price-current" id="priceNow">350.000đ</span>
+          <span class="price-old-wrapper">
+            <span class="price-old" id="priceOld">412.000đ</span>
+            <span class="discount-badge" id="discountBadge">-15%</span>
+          </span>
+        </div>
+
+        <!-- QUANTITY -->
+        <div class="quantity-section">
+          <span style="font-weight: 600;">Số lượng</span>
+          <div class="quantity-control">
+            <button class="quantity-btn" onclick="decreaseQty()">−</button>
+            <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="100">
+            <button class="quantity-btn" onclick="increaseQty()">+</button>
+          </div>
+        </div>
+        <!-- BUTTONS -->
+        <div class="action-buttons">
+          <button class="btn-add-cart" id="addCartBtn"><i class="fa-light fa-basket-shopping"></i> THÊM VÀO GIỎ</button>
+          <button class="btn-buy-now" id="buyNowBtn"><i class="fa-light fa-zap"></i> MUA NGAY</button>
+        </div>
+        <!-- VOUCHER -->
+        <div class="voucher-section">
+          <div class="voucher-title"><i class="fa-light fa-ticket"></i> VOUCHER TẾT KIẾM</div>
+          <div class="voucher-tags">
+            <span class="voucher-tag">🎁 Mã giảm giá</span>
+            <span class="voucher-tag">🚚 Freeship lv 195</span>
+            <span class="voucher-tag">💳 Promo lv 195</span>
+          </div>
+        </div>
+        <!-- BENEFITS -->
+        <div class="benefits-section">
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fa-light fa-circle-check"></i></div>
+            <div class="benefit-text">
+              <strong>Được gọi bán</strong>
+              Chính sách hoàn tiền 100%
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fa-light fa-box"></i></div>
+            <div class="benefit-text">
+              <strong>Phí hỗ trợ vận chuyển</strong>
+              Một thương quyết công hàng
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fa-light fa-shield"></i></div>
+            <div class="benefit-text">
+              <strong>Kết cấu sản phẩm riêng</strong>
+              Phí hỗ trợ hàng hóa
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fa-light fa-truck"></i></div>
+            <div class="benefit-text">
+              <strong>Người thương quyết công hàng</strong>
+              Chuyển từ chứng sở được tại
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="product-description">
+      <h2 class="description-title">Mô tả sản phẩm</h2>
+      <p class="description-text" id="fullDescription"></p>
+    </div>
+  </div>
+<!-- ============ REVIEW SECTION ============ -->
+<div class="review-wrapper">
+    <div class="review-container">
+        <!-- REVIEW STATS -->
+        <div class="review-stats">
+            <div class="stats-left">
+                <h3 class="stats-title">Đánh Giá Sản Phẩm</h3>
+                <div class="rating-summary">
+                    <div class="avg-rating" id="avgRating">4.9</div>
+                    <div class="rating-stars" id="ratingStars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                    </div>
+                    <div class="review-count" id="reviewCountDisplay">245 đánh giá</div>
+                </div>
+            </div>
+
+            <!-- RATING DISTRIBUTION -->
+            <div class="stats-right">
+                <div class="rating-distribution">
+                    <div class="distribution-item">
+                        <span class="distribution-label">5 <i class="fas fa-star" style="color: #ffc107;"></i></span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 60%"></div>
+                        </div>
+                        <span class="distribution-count">150</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="distribution-label">4 <i class="fas fa-star" style="color: #ffc107;"></i></span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 25%"></div>
+                        </div>
+                        <span class="distribution-count">60</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="distribution-label">3 <i class="fas fa-star" style="color: #ffc107;"></i></span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 10%"></div>
+                        </div>
+                        <span class="distribution-count">20</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="distribution-label">2 <i class="fas fa-star" style="color: #ffc107;"></i></span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 3%"></div>
+                        </div>
+                        <span class="distribution-count">10</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="distribution-label">1 <i class="fas fa-star" style="color: #ffc107;"></i></span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 2%"></div>
+                        </div>
+                        <span class="distribution-count">5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REVIEW FORM -->
+        <div class="review-form-wrapper">
+            <h3 class="form-title"><i class="fas fa-pen-fancy"></i> Viết Đánh Giá</h3>
+            <form class="review-form" id="reviewForm">
+                <div class="form-group">
+                    <label class="form-label">Tên của bạn</label>
+                    <input 
+                        type="text" 
+                        class="form-control review-input" 
+                        id="reviewerName" 
+                        placeholder="Nhập tên của bạn" 
+                        maxlength="50"
+                    >
+                    <span class="form-error" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Xếp hạng</label>
+                    <div class="rating-selector" id="ratingSelector">
+                        <button type="button" class="star-btn" data-rating="1" title="Tệ">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button type="button" class="star-btn" data-rating="2" title="Không tốt">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button type="button" class="star-btn" data-rating="3" title="Bình thường">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button type="button" class="star-btn" data-rating="4" title="Tốt">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button type="button" class="star-btn" data-rating="5" title="Rất tốt">
+                            <i class="fas fa-star"></i>
+                        </button>
+                    </div>
+                    <span class="selected-rating" id="selectedRating">Chọn xếp hạng</span>
+                    <span class="form-error" id="ratingError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nội dung đánh giá</label>
+                    <textarea 
+                        class="form-control review-textarea" 
+                        id="reviewContent" 
+                        placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..." 
+                        rows="5"
+                        maxlength="500"
+                    ></textarea>
+                    <div class="textarea-counter">
+                        <span id="charCount">0</span>/500
+                    </div>
+                    <span class="form-error" id="contentError"></span>
+                </div>
+
+                <button type="submit" class="btn-submit-review">
+                    <i class="fas fa-paper-plane"></i> Gửi Đánh Giá
+                </button>
+            </form>
+        </div>
+
+        <!-- REVIEWS LIST -->
+        <div class="reviews-list-wrapper">
+            <h3 class="form-title"><i class="fas fa-comments"></i> Đánh Giá Từ Khách Hàng</h3>
+            <div class="reviews-list" id="reviewsList">
+                <!-- Reviews will be loaded here -->
+            </div>
+            <div class="no-reviews" id="noReviews" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <p>Chưa có đánh giá nào. Hãy trở thành người đầu tiên!</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--FOOTER-->
+  <footer class="footer">
+      <div class="footer-container">
+
+          <!-- Cột 1: Logo + thông tin -->
+          <div class="footer-col company">
+              <img src="../images/LOGO.png" alt="Guardian" class="logo">
+
+              <p><b>CÔNG TY TNHH MTV THƯƠNG MẠI <BR> VÀ ĐẦU TƯ LIÊN Á CHÂU</b></p>
+              <p>Giấy chứng nhận đăng ký doanh <BR> nghiệp số 0310618188</p>
+              <p>Tự sở chính: L2-VP-01, 346 Bến Vân Đồn, TP.HCM</p>
+              <p>Hotline: <span class="hotline">19004449</span></p>
+
+              
+          </div>
+
+          <!-- Cột 2: mạng xã hội + app -->
+          <div class="footer-col social">
+              <h3>Theo dõi chúng tôi</h3>
+              <div class="social-icons">
+
+      <div class="social-icons">
+      <a href="https://www.facebook.com/guardianvn" target="_blank">
+          <img src="../images/FB.JPG">
+      </a>
+
+      <a href="https://www.instagram.com/guardianvn" target="_blank">
+          <img src="../images/IG.JPG">
+      </a>
+
+      <a href="https://www.youtube.com/@guardianvietnam" target="_blank">
+          <img src="../images/YT.JPG">
+      </a>
+
+      <a href="https://www.tiktok.com/@guardianvietnam" target="_blank">
+          <img src="../images/TT.jpg">
+      </a>
+  </div>
+
+  </div>
+
+              <h3>Tải App Ngay</h3>
+              <img src="../images/QR.JPG" class="qr">
+
+              <div class="app">
+                  <a href="#"><img src="../images/ggplay_logo.png"></a>
+                  <a href="#"><img src="../images/appstore.png"></a>
+              </div>
+          </div>
+
+          <!-- Cột 3 -->
+          <div class="footer-col">
+              <h3>Về chúng tôi</h3>
+              <ul>
+                  <li><a href="#">Giới thiệu</a></li>
+                  <li><a href="#">Tin tức</a></li>
+                  <li><a href="#">Cẩm nang làm đẹp</a></li>
+                  <li><a href="#">Tuyển dụng</a></li>
+                  <li><a href="#">Đối điểm Hội Cam</a></li>
+                  <li><a href="#">Liên hệ</a></li>
+                  <li><a href="#">Địa chỉ cửa hàng</a></li>
+                  <li><a href="#">Hợp tác cùng Guardian</a></li>
+              </ul>
+          </div>
+
+          <!-- Cột 4 -->
+          <div class="footer-col">
+              <h3>Chính sách</h3>
+              <ul>
+                  <li><a href="#">Chính sách và quy định chung</a></li>
+                  <li><a href="#">Quy định thanh toán</a></li>
+                  <li><a href="#">Chính sách vận chuyển</a></li>
+                  <li><a href="#">Chính sách đổi trả</a></li>
+                  <li><a href="#">Bảo mật thông tin</a></li>
+                  <li><a href="#">Hướng dẫn mua hàng</a></li>
+                  <li><a href="#">Xuất hóa đơn</a></li>
+                  <li><a href="#">Điều khoản sử dụng</a></li>
+              </ul>
+          </div>
+
+      </div>
+  </footer>
+
+  
+  <script>
+    // ============ TOAST FUNCTION ============
+    function toast({ 
+        title, 
+        message, 
+        type = 'success', 
+        duration = 3000,
+    }) { 
+        const main = document.getElementById('toast'); 
+        if (main) { 
+            const toast = document.createElement('div');  
+            const autoRemoveId = setTimeout(() => {
+                toast.classList.add('removing');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, duration);
+            
+            toast.onclick = function(e) { 
+                if(e.target.closest('.toast-close')){ 
+                    toast.classList.add('removing');
+                    setTimeout(() => {
+                        main.removeChild(toast);
+                    }, 400);
+                    clearTimeout(autoRemoveId); 
+                }
+            }
+
+            const icons = { 
+                success: 'fas fa-check-circle', 
+                info: 'fas fa-info-circle', 
+                warning: 'fas fa-exclamation-circle', 
+                error: 'fas fa-exclamation-circle',
+            } 
+
+            const icon = icons[type];
+            toast.classList.add('toast', `toast--${type}`);
+
+            toast.innerHTML = ` 
+                <div class="toast-icon">  
+                    <i class="${icon}"></i>
+                </div> 
+
+                <div class="toast-body"> 
+                    <h3 class="toast-title">${title}</h3> 
+                    <p class="toast-msg">${message}</p>
+                </div>  
+       
+                <div class="toast-close"> 
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+            `;  
+            main.appendChild(toast); 
+        } 
+    }
+
+    // ============ PRODUCT DETAIL SCRIPT ============
+    // Lấy ID sản phẩm từ URL
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('id'));
+
+    // Lấy dữ liệu sản phẩm
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const product = products.find(p => p.id === productId);
+
+    // Hiển thị sản phẩm
+    if (product) {
+      document.getElementById('mainImg').src = product.img;
+      document.getElementById('thumb1').src = product.img;
+      document.getElementById('productTitle').innerText = product.title;
+      document.getElementById('breadcrumb-product').innerText = product.title;
+      document.getElementById('fullDescription').innerText = product.description;
+      document.getElementById('soldCount').innerText = `| ${product.sold?.toLocaleString() || 0} đã bán`;
+      document.getElementById('ratingValue').innerText = product.rating || 4.9;
+      document.getElementById('reviewCount').innerText = `${Math.round(product.rating * 50)} đánh giá`;
+
+      // Giá
+      const priceDiscount = Math.round(product.price * (100 - product.discount) / 100);
+      document.getElementById('priceNow').innerText = priceDiscount.toLocaleString() + 'đ';
+      document.getElementById('priceOld').innerText = product.price.toLocaleString() + 'đ';
+      document.getElementById('discountBadge').innerText = `-${product.discount}%`;
+    }
+
+    // Thay đổi hình ảnh
+    function changeImage(thumb) {
+      document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      document.getElementById('mainImg').src = thumb.querySelector('img').src;
+    }
+
+    // Thay đổi option
+    function selectOption(btn, value) {
+      btn.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+// Lấy tất cả các bảng chọn trên trang
+const allSelects = document.querySelectorAll('.variant-select');
+
+allSelects.forEach(select => {
+    // Lắng nghe sự kiện thay đổi trên từng dropdown
+    select.addEventListener('change', function() {
+        // Tìm đến container cha (product-item) của dropdown này
+        const container = this.closest('.product-item');
+        
+        // Tìm thành phần hiển thị giá và giá gốc bên trong container đó
+        const priceElement = container.querySelector('.display-price');
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price'));
+        
+        // Tính toán
+        const addPrice = parseInt(this.value);
+        const totalPrice = basePrice + addPrice;
+
+        // Cập nhật hiển thị (định dạng dấu chấm phân cách hàng nghìn)
+        priceElement.textContent = totalPrice.toLocaleString('vi-VN');
+    });
+});
+// 1. Bắt sự kiện khi bấm nút MUA NGAY
+document.getElementById('buyNowBtn').addEventListener('click', () => {
+    let currentUser = localStorage.getItem('currentuser') ? JSON.parse(localStorage.getItem('currentuser')) : null;
+    if (!currentUser) {
+        toast({ title: 'Cảnh báo', message: 'Vui lòng đăng nhập trước!', type: 'warning', duration: 3000 });
+        return;
+    }
+
+    // Lấy số lượng từ ô input hiện tại
+    const quantity = parseInt(document.getElementById('quantity').value);
+    
+    // Tính giá sau khuyến mãi
+    const priceDiscount = Math.round(product.price * (100 - product.discount) / 100);
+    const totalPrice = priceDiscount * quantity;
+
+    // 2. Tạo giao diện cho Popup xác nhận (Dùng class Tailwind)
+    const modalContent = `
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-xl font-bold text-gray-800">Xác nhận mua ngay</h3>
+                <button onclick="document.getElementById('cartModal').classList.add('hidden')" class="text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex gap-4 mb-4 border-b pb-4">
+                <img src="${product.img}" alt="${product.title}" class="w-24 h-24 object-cover rounded-md border">
+                <div class="flex flex-col justify-center">
+                    <h4 class="font-semibold text-lg text-gray-800">${product.title}</h4>
+                    <div class="text-gray-600 mt-1">Số lượng: <span class="font-bold text-black">${quantity}</span></div>
+                    <p class="text-[#ff5722] font-bold text-lg mt-1">${priceDiscount.toLocaleString()}đ</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-bold text-lg text-gray-700">Tổng thanh toán:</span>
+                <span class="font-bold text-2xl text-[#ff5722]">${totalPrice.toLocaleString()}đ</span>
+            </div>
+            
+            <button class="w-full bg-[#ff5722] text-white py-3 rounded-lg font-bold text-lg hover:bg-[#e64a19] transition-colors" onclick="proceedToBuyNow()">
+                TIẾN HÀNH THANH TOÁN
+            </button>
+        </div>
+    `;
+
+    // 3. Đổ HTML vào cartModal và hiển thị lên
+    const cartModal = document.getElementById('cartModal');
+    cartModal.querySelector('.bg-white').innerHTML = modalContent;
+    cartModal.classList.remove('hidden');
+});
+
+// Hàm xử lý khi bấm nút "TIẾN HÀNH THANH TOÁN" trong Popup
+function proceedToBuyNow() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    
+    // TẠO MẢNG CHỈ CHỨA 1 SẢN PHẨM NÀY
+    const buyNowItem = [{ 
+        id: product.id, 
+        soluong: quantity, 
+        note: '' 
+    }];
+    
+    localStorage.setItem('buyNowData', JSON.stringify(buyNowItem));
+    
+    document.getElementById('cartModal').classList.add('hidden');
+    
+    const checkoutPage = document.querySelector('.checkout-page');
+    if(checkoutPage) checkoutPage.classList.add('active'); 
+}
+    function increaseQty() {
+      let qty = document.getElementById('quantity');
+      qty.value = parseInt(qty.value) + 1;
+    }
+
+    function decreaseQty() {
+      let qty = document.getElementById('quantity');
+      if (qty.value > 1) qty.value = parseInt(qty.value) - 1;
+    }
+    function proceedToBuyNow() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    
+    const buyNowItem = [{ 
+        id: product.id, 
+        soluong: quantity, 
+        note: '' 
+    }];
+    
+    // Lưu tạm vào localStorage với tên 'buyNowData'
+    localStorage.setItem('buyNowData', JSON.stringify(buyNowItem));
+    localStorage.removeItem('checkoutCart'); // Xóa giỏ hàng thường
+    
+    // Đóng Popup
+    document.getElementById('cartModal').classList.add('hidden');
+    
+    // Chuyển hướng đến trang checkout
+    window.location.href = 'checkout.html';
+}
+    // Thêm vào giỏ
+    document.getElementById('addCartBtn').addEventListener('click', () => {
+      const quantity = parseInt(document.getElementById('quantity').value);
+      
+      let currentUser = localStorage.getItem('currentuser') ? JSON.parse(localStorage.getItem('currentuser')) : null;
+      
+      if (!currentUser) {
+        toast({ 
+          title: 'Cảnh báo', 
+          message: 'Vui lòng đăng nhập trước!', 
+          type: 'warning', 
+          duration: 3000 
+        });
+        return;
+      }
+      
+      let cart = currentUser.cart || [];
+      let existItem = cart.find(item => item.id === product.id);
+
+      if (existItem) {
+        existItem.soluong += quantity;
+      } else {
+        cart.push({ id: product.id, soluong: quantity, note: '' });
+      }
+      
+      currentUser.cart = cart;
+      localStorage.setItem('currentuser', JSON.stringify(currentUser));
+      document.querySelector('.count-product-cart').innerText = cart.length;
+      
+      toast({ 
+        title: 'Thành công', 
+        message: 'Thêm sản phẩm vào giỏ hàng!', 
+        type: 'success', 
+        duration: 3000 
+      });
+      
+      document.getElementById('quantity').value = 1;
+    });
+    
+  </script>
+     <div id="cartModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
+        <div class="bg-white w-full max-w-md mx-4 rounded-3xl overflow-hidden">
+ 
+
+        </div>
+    </div>
+        <div class="container" id="account-user">
+            <div class="main-account">
+                <div class="main-account-header">
+                    <h3>Thông tin tài khoản của bạn</h3>
+                    <p>Quản lý thông tin để bảo mật tài khoản</p>
+                </div>
+                <div class="main-account-body">
+                    <div class="main-account-body-col">
+                        <form action="" class="info-user">
+                            <div class="form-group">
+                                <label for="infoname" class="form-label">Họ và tên</label>
+                                <input class="form-control" type="text" name="infoname" id="infoname" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="infophone" class="form-label">Số điện thoại</label>
+                                <input class="form-control" type="text" name="infophone" id="infophone" disabled="true"
+                                    placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="infoemail" class="form-label">Email</label>
+                                <input class="form-control" type="email" name="infoemail" id="infoemail"
+                                    placeholder="Thêm địa chỉ email của bạn">
+                                <span class="inforemail-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="infoaddress" class="form-label">Địa chỉ</label>
+                                <input class="form-control" type="text" name="infoaddress" id="infoaddress"
+                                    placeholder="Thêm địa chỉ giao hàng của bạn">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="main-account-body-col">
+                        <form action="" class="change-password">
+                            <div class="form-group">
+                                <label for="" class="form-label w60">Mật khẩu hiện tại</label>
+                                <input class="form-control" type="password" name="" id="password-cur-info"
+                                    placeholder="Nhập mật khẩu hiện tại">
+                                <span class="password-cur-info-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label w60">Mật khẩu mới </label>
+                                <input class="form-control" type="password" name="" id="password-after-info"
+                                    placeholder="Nhập mật khẩu mới">
+                                <span class="password-after-info-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label w60">Xác nhận mật khẩu mới</label>
+                                <input class="form-control" type="password" name="" id="password-comfirm-info"
+                                    placeholder="Nhập lại mật khẩu mới">
+                                <span class="password-after-comfirm-error form-message"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="main-account-body-row">
+                        <div>
+                            <button id="save-info-user" onclick="changeInformation()"><i
+                                    class="fa-regular fa-floppy-disk"></i> Lưu thay đổi</button>
+                        </div>
+                        <div>
+                            <button id="save-password" onclick="changePassword()"><i class="fa-regular fa-key"></i> Đổi
+                                mật khẩu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="order-history">
+            <div class="main-account">
+                <div class="main-account-header">
+                    <h3>Quản lý đơn hàng của bạn</h3>
+                    <p>Xem chi tiết, trạng thái của những đơn hàng đã đặt.</p>
+                </div>
+                <div class="main-account-body">
+                    <div class="order-history-section">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="modal product-detail">
+        <button class="modal-close close-popup"><i class="fa-thin fa-xmark"></i></button>
+        <div class="modal-container mdl-cnt" id="product-detail-content">
+        </div>
+    </div>
+    <div class="modal detail-order">
+        <div class="modal-container mdl-cnt">
+            <h3 class="modal-container-title">Thông tin đơn hàng</h3>
+            <button class="form-close" onclick="closeModal()"><i class="fa-regular fa-xmark"></i></button>
+            <div class="detail-order-content">
+            </div>
+        </div>
+    </div>
+   
+    <div class="back-to-top">
+        <a href="#"><i class="fa-regular fa-arrow-up"></i></a>
+    </div>
+    <div class="checkout-page">
+        <div class="checkout-header">
+            <div class="checkout-return">
+                <button onclick="closecheckout()"><i class="fa-regular fa-chevron-left"></i></button>
+            </div>
+            <h3 class="checkout-title">Thanh Toán</h3>
+        </div>
+    <!-- ============ TOAST CONTAINER ============ -->
+    <script src="./js/initialization.js"></script>
+    <script src="./js/filter-products.js"></script>
+    <script src="./js/qutri.js"></script>
+    <script src="./js/checkout.js"></script>
+    <script src="./js/toast-message.js"></script>
+    <script src="./js/account-management.js"></script>
+    <script src="./js/product-list.js"></script>
+</body>
+</html>

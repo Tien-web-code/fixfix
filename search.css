@@ -1,0 +1,20 @@
+    .search-box { position: relative; }
+    .search-dropdown { display: none; position: absolute; top: 110%; left: 0; width: 600px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); padding: 20px; z-index: 9999; text-align: left; font-family: Arial, sans-serif; }
+    .search-dropdown h4 { font-size: 13px; font-weight: 800; margin: 0 0 12px 0; color: #000; text-transform: uppercase; }
+    
+    .suggested-keywords ul { list-style: none; padding: 0; margin: 0; }
+    .suggested-keywords a { color: #333; text-decoration: none; font-size: 14px; display: block; margin-bottom: 10px; transition: 0.2s;}
+    .suggested-keywords a:hover { color: #ff6b00; padding-left: 5px; }
+
+    .search-product-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .search-product-item { display: flex; align-items: center; gap: 15px; text-decoration: none; color: #333; padding: 8px; border-radius: 8px; transition: 0.2s; }
+    .search-product-item:hover { background: #fdf5f0; }
+    .search-product-item img { width: 60px; height: 60px; object-fit: contain; border: 1px solid #eee; border-radius: 5px; }
+    .search-sp-name { font-size: 13px; margin-bottom: 5px; font-weight: 500;}
+    .search-price-new { color: #ee2624; font-weight: bold; font-size: 14px;}
+    .search-price-old { color: #999; text-decoration: line-through; font-size: 11px; margin: 0 5px; }
+    .search-discount { background: #ee2624; color: white; padding: 2px 5px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+
+    .search-brand-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+    .search-brand-tag { background: #f5f5f5; color: #555; padding: 6px 15px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.2s; }
+    .search-brand-tag:hover { background: #e0e0e0; color: #000; }

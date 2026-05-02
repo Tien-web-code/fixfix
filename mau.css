@@ -1,0 +1,12 @@
+.header {
+  background: linear-gradient(90deg, #ff7a00, #ff9e00);
+}
+
+.filter-button {
+  background-color: #ff7a00;
+}
+
+/* Replace all instances of the --red color */
+:root {
+  --red: #ff7a00;
+}

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Đơn Hàng - Beauty Store</title>
+    <link rel="stylesheet" type="text/css" href="topbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/search.css"/>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/home-responsive.css">
+    <link rel="stylesheet" href="./assets/font/font-awesome-pro-v6-6.2.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .order-detail-wrapper {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ff5722;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            color: #e64a19;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        .detail-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff5722;
+        }
+
+        .section-title i {
+            color: #ff5722;
+            font-size: 18px;
+        }
+
+        /* ============ ORDER INFO ============ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .info-box {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 3px solid #ff5722;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* ============ CUSTOMER INFO ============ */
+        .customer-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .customer-group {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .customer-label {
+            font-size: 13px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .customer-value {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* ============ PRODUCTS TABLE ============ */
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .products-table thead {
+            background: #ff5722;
+            color: white;
+        }
+
+        .products-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .products-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        .products-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .product-col {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .product-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .product-info p {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .price-col {
+            text-align: right;
+            font-weight: 600;
+            color: #ff5722;
+        }
+
+        .qty-col {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* ============ SIDEBAR ============ */
+        .detail-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .status-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .status-time {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* ============ SUMMARY BOX ============ */
+        .summary-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #ff5722;
+            border-bottom: none;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff5722;
+        }
+
+        /* ============ ACTION BUTTONS ============ */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-action {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #ff5722;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e64a19;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #fff;
+            border-color: #ff5722;
+            color: #ff5722;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .customer-info {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-table {
+                font-size: 12px;
+            }
+
+            .products-table th,
+            .products-table td {
+                padding: 10px;
+            }
+
+            .product-col {
+                flex-direction: column;
+            }
+
+            .product-img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            .back-button,
+            .action-buttons {
+                display: none;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ============ TOAST ============ */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            border-left: 4px solid #22c55e;
+        }
+
+        .toast.error {
+            border-left: 4px solid #ff5722;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER & NAV -->
+<div class="top-bar">
+    <div class="top-bar-content">
+        IP25K - GIẢM NGAY 25K CHO ĐƠN HÀNG 99K | NHẬP MÃ T04FREESHIP20K - GIẢM NGAY 20K
+    </div>
+</div>
+
+<div class="header">
+    <div class="header-main">
+        <div class="logo">
+            <img src="../images/LOGO3.png" alt="logo">
+        </div>
+        <div class="header-middle-right">
+            <ul class="header-middle-right-list">
+                <li class="header-middle-right-item">
+                    <i class="fa-light fa-user"></i>
+                    <span class="text-tk">Tài khoản</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <header class="header-nav">
+        <div class="nav-container">
+            <div class="nav-item-wrap">
+                <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i> TRANG CHỦ</a>
+            </div>
+        </div>
+    </header>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="order-detail-wrapper">
+    <a class="back-button" onclick="history.back()">
+        <i class="fa-solid fa-chevron-left"></i> Quay Lại
+    </a>
+
+    <h1 class="page-title">Chi Tiết Đơn Hàng</h1>
+
+    <div class="detail-grid">
+        <!-- MAIN CONTENT -->
+        <div class="detail-main">
+            <!-- ORDER INFO -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fa-solid fa-receipt"></i> Thông Tin Đơn Hàng
+                </div>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-label">Mã Đơn</div>
+                        <div class="info-value" id="orderCode">-</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Ngày Đặt</div>
+                        <div class="info-value" id="orderDate">-</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Phương Thức Thanh Toán</div>
+                        <div class="info-value" id="paymentMethod">-</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Ghi Chú</div>
+                        <div class="info-value" id="orderNote" style="font-size: 13px;">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUSTOMER INFO -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fa-solid fa-user"></i> Thông Tin Khách Hàng
+                </div>
+                <div class="customer-info">
+                    <div>
+                        <div class="customer-group">
+                            <div class="customer-label">Họ Tên</div>
+                            <div class="customer-value" id="customerName">-</div>
+                        </div>
+                        <div class="customer-group">
+                            <div class="customer-label">Số Điện Thoại</div>
+                            <div class="customer-value" id="customerPhone">-</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="customer-group">
+                            <div class="customer-label">Địa Chỉ Giao Hàng</div>
+                            <div class="customer-value" id="customerAddress">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTS -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fa-solid fa-box"></i> Sản Phẩm Đặt Hàng
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Sản Phẩm</th>
+                                <th style="text-align: center;">Số Lượng</th>
+                                <th style="text-align: right;">Giá</th>
+                                <th style="text-align: right;">Thành Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="detail-sidebar">
+            <!-- STATUS -->
+            <div class="status-box">
+                <div class="status-label">Trạng Thái Đơn</div>
+                <div class="status-badge" id="statusBadge">-</div>
+                <div class="status-time" id="statusTime">-</div>
+            </div>
+
+            <!-- SUMMARY -->
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span>Tạm Tính:</span>
+                    <span id="subtotal">0đ</span>
+                </div>
+                <div class="summary-row">
+                    <span>Phí Vận Chuyển:</span>
+                    <span id="shipping">0đ</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Tổng Cộng:</span>
+                    <span id="totalAmount">0đ</span>
+                </div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="action-buttons">
+                <button class="btn-action btn-primary" onclick="printOrder()">
+                    <i class="fa-solid fa-print"></i> In Đơn Hàng
+                </button>
+                <button class="btn-action btn-secondary" onclick="goToOrders()">
+                    <i class="fa-solid fa-arrow-left"></i> Quay Lại Danh Sách
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="copyright-wrap">
+    <div class="container">
+        <div class="copyright-content">
+            <p>© 2026 Beauty Store. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer"></div>
+
+<script src="./js/initialization.js"></script>
+<script>
+    // ============ ORDER DETAIL ============
+    let selectedOrder = null;
+    let allProducts = [];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        loadProducts();
+        loadOrderDetail();
+    });
+
+    function loadProducts() {
+        const productsData = localStorage.getItem('products');
+        if (productsData) {
+            allProducts = JSON.parse(productsData);
+        }
+    }
+
+    function loadOrderDetail() {
+        const orderData = localStorage.getItem('selectedOrder');
+        if (!orderData) {
+            window.location.href = 'orders.html';
+            return;
+        }
+
+        selectedOrder = JSON.parse(orderData);
+        renderOrderDetail();
+    }
+
+    function renderOrderDetail() {
+        if (!selectedOrder) return;
+
+        // Order Info
+        document.getElementById('orderCode').textContent = `#${selectedOrder.id}`;
+        
+        const orderDate = new Date(selectedOrder.createdAt);
+        document.getElementById('orderDate').textContent = orderDate.toLocaleDateString('vi-VN');
+        
+        document.getElementById('paymentMethod').textContent = selectedOrder.customer.paymentMethod || 'Chưa thanh toán';
+        document.getElementById('orderNote').textContent = selectedOrder.customer.note || 'Không có ghi chú';
+
+        // Customer Info
+        document.getElementById('customerName').textContent = selectedOrder.customer.name;
+        document.getElementById('customerPhone').textContent = selectedOrder.customer.phone;
+        document.getElementById('customerAddress').textContent = selectedOrder.customer.address;
+
+        // Status
+        const statusElement = document.getElementById('statusBadge');
+        statusElement.textContent = getStatusLabel(selectedOrder.status);
+        statusElement.className = `status-badge ${selectedOrder.status}`;
+        document.getElementById('statusTime').textContent = `Cập nhật: ${orderDate.toLocaleString('vi-VN')}`;
+
+        // Products
+        renderProducts();
+
+        // Summary
+        const subtotal = selectedOrder.items.reduce((sum, item) => {
+            const product = allProducts.find(p => p.id === item.id);
+            if (!product) return sum;
+            const finalPrice = product.price * (1 - product.discount / 100);
+            return sum + (finalPrice * item.quantity);
+        }, 0);
+
+        const shipping = selectedOrder.shipping || (subtotal > 500000 ? 0 : 30000);
+        const total = selectedOrder.total || (subtotal + shipping);
+
+        document.getElementById('subtotal').textContent = subtotal.toLocaleString('vi-VN') + 'đ';
+        document.getElementById('shipping').textContent = shipping.toLocaleString('vi-VN') + 'đ';
+        document.getElementById('totalAmount').textContent = total.toLocaleString('vi-VN') + 'đ';
+    }
+
+    function renderProducts() {
+        const tbody = document.getElementById('productsTableBody');
+
+        tbody.innerHTML = selectedOrder.items.map(item => {
+            const product = allProducts.find(p => p.id === item.id);
+            if (!product) return '';
+
+            const finalPrice = product.price * (1 - product.discount / 100);
+            const itemTotal = finalPrice * item.quantity;
+
+            return `
+                <tr>
+                    <td>
+                        <div class="product-col">
+                            <div class="product-img">
+                                <img src="${product.img}" alt="${product.title}" onerror="this.src='./assets/img/placeholder.png'">
+                            </div>
+                            <div class="product-info">
+                                <h4>${product.title}</h4>
+                                <p>${product.category}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="qty-col">${item.quantity}</td>
+                    <td class="price-col">${finalPrice.toLocaleString('vi-VN')}đ</td>
+                    <td class="price-col">${itemTotal.toLocaleString('vi-VN')}đ</td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function getStatusLabel(status) {
+        const labels = {
+            'pending': 'Chờ Xử Lý',
+            'completed': 'Hoàn Thành',
+            'cancelled': 'Đã Hủy'
+        };
+        return labels[status] || status;
+    }
+
+    function printOrder() {
+        window.print();
+    }
+
+    function goToOrders() {
+        window.location.href = 'orders.html';
+    }
+
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `
+            <i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        container.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 3000);
+    }
+</script>
+</body>
+</html>
